@@ -29,7 +29,7 @@ body {
 }
 
 #crane-container {
-  width: 320px;
+  width: 500px;
   height: 320px;
   margin: 0 auto 10px;
   cursor: grab;
@@ -40,13 +40,13 @@ body {
 }
 
 .profile-icon {
-  width: 160px;
-  height: 160px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid white;
+  border: 2px solid white;
   margin-bottom: 25px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   background: white; /* 背景を白にすることで透過部分の粗さを軽減 */
 }
 

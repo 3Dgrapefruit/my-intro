@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         camera.lookAt(0, 1, 0);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(320, 320);
+        renderer.setSize(500, 320);
         renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
