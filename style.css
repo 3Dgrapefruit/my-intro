@@ -29,8 +29,8 @@ body {
 }
 
 #crane-container {
-  width: 500px;
-  height: 320px;
+  width: 350px;
+  height: 350px;
   margin: 0 auto 10px;
   cursor: grab;
 }
