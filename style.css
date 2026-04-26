@@ -16,9 +16,9 @@
 
 body {
   font-family: var(--font-main);
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--text-color);
-  background-color: var(--bg-color);
+  background-color: #f5f7fa; /* Light blue-gray for better contrast */
   overflow-x: hidden;
 }
 
@@ -99,10 +99,18 @@ h2::before {
 }
 
 .card {
-  background: var(--light-gray);
+  background: #ffffff; /* Clear white for cards */
   padding: 30px;
-  border-radius: 16px;
-  transition: transform 0.3s ease;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Floating effect */
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
 }
 
 .card h3 {
@@ -135,6 +143,7 @@ h2::before {
   border-radius: 24px;
   padding: 60px 40px;
   margin: 40px 0;
+  box-shadow: 0 10px 30px rgba(244, 0, 144, 0.1);
 }
 
 .ai-section h2 {
@@ -155,11 +164,13 @@ h2::before {
 
 /* Future Goal */
 .goal-content {
-  background: linear-gradient(to right, #fdfbfb 0%, #ebedee 100%);
+  background: #ffffff;
   padding: 40px;
-  border-radius: 16px;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .goal-content::after {

@@ -25,64 +25,101 @@ document.addEventListener('DOMContentLoaded', () => {
         directionalLight.position.set(5, 10, 5);
         scene.add(directionalLight);
 
+        // --- Detailed Crane Design (Tomica-style) ---
+        const craneGroup = new THREE.Group();
+        scene.add(craneGroup);
+
         // Colors
         const yellow = 0xffd700;
-        const black = 0x333333;
+        const black = 0x222222;
+        const lightGray = 0xcccccc;
 
-        // Helper to create box with outline
+        // Helper
         const createBox = (w, h, d, color) => {
             const group = new THREE.Group();
             const geometry = new THREE.BoxGeometry(w, h, d);
             const material = new THREE.MeshPhongMaterial({ color: color });
             const mesh = new THREE.Mesh(geometry, material);
             group.add(mesh);
-
-            // Outline
             const edges = new THREE.EdgesGeometry(geometry);
-            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 }));
+            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
             group.add(line);
-
             return group;
         };
 
-        // Crane Group
-        const craneGroup = new THREE.Group();
-        scene.add(craneGroup);
+        // Chassis (Base)
+        const chassis = createBox(3, 0.5, 1.6, yellow);
+        chassis.position.y = 0.5;
+        craneGroup.add(chassis);
 
-        // Body
-        const body = createBox(2.5, 0.8, 1.8, yellow);
-        body.position.y = 0.6;
-        craneGroup.add(body);
+        // Outriggers (legs)
+        const outriggerPos = [
+            [1.2, 0.45, 0.8], [1.2, 0.45, -0.8],
+            [-1.2, 0.45, 0.8], [-1.2, 0.45, -0.8]
+        ];
+        outriggerPos.forEach(pos => {
+            const leg = createBox(0.4, 0.2, 0.4, yellow);
+            leg.position.set(...pos);
+            craneGroup.add(leg);
+        });
+
+        // Rotating Platform
+        const platform = createBox(1.8, 0.4, 1.4, yellow);
+        platform.position.y = 0.95;
+        craneGroup.add(platform);
 
         // Cabin
-        const cabin = createBox(1, 1, 1.2, yellow);
-        cabin.position.set(-0.5, 1.5, 0);
-        craneGroup.add(cabin);
+        const cabinGroup = new THREE.Group();
+        cabinGroup.position.set(-0.6, 1.5, 0.4);
+        craneGroup.add(cabinGroup);
+        const cabinMain = createBox(0.8, 1, 0.7, yellow);
+        cabinGroup.add(cabinMain);
+        // Window
+        const windowPane = createBox(0.4, 0.5, 0.71, 0x3366ff);
+        windowPane.position.set(0.25, 0.2, 0);
+        cabinGroup.add(windowPane);
 
-        // Boom
+        // Boom System
         const boomGroup = new THREE.Group();
-        boomGroup.position.set(0.5, 1.1, 0);
+        boomGroup.position.set(0.4, 1.3, 0);
         craneGroup.add(boomGroup);
 
-        const boom = createBox(4, 0.4, 0.6, yellow);
-        boom.position.set(1.8, 0, 0);
-        boomGroup.add(boom);
-        boomGroup.rotation.z = Math.PI / 6; // Angle up
+        // Base Boom
+        const boom1 = createBox(3, 0.5, 0.6, yellow);
+        boom1.position.set(1.4, 0, 0);
+        boomGroup.add(boom1);
 
-        // Wheels
-        const wheelGeom = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 16);
+        // Second Boom (thinner)
+        const boom2 = createBox(2.8, 0.35, 0.45, yellow);
+        boom2.position.set(2.8, 0, 0);
+        boom1.add(boom2);
+
+        boomGroup.rotation.z = Math.PI / 6;
+
+        // Counterweight
+        const cw = createBox(0.6, 0.6, 1.2, yellow);
+        cw.position.set(-0.6, 1.3, -0.2);
+        craneGroup.add(cw);
+
+        // Wheels with rims
+        const wheelGeom = new THREE.CylinderGeometry(0.45, 0.45, 0.4, 16);
+        const rimGeom = new THREE.CylinderGeometry(0.2, 0.2, 0.42, 16);
         const wheelMat = new THREE.MeshPhongMaterial({ color: black });
-        const positions = [
-            [0.8, 0.4, 0.9], [0.8, 0.4, -0.9],
-            [-0.8, 0.4, 0.9], [-0.8, 0.4, -0.9]
+        const rimMat = new THREE.MeshPhongMaterial({ color: lightGray });
+        const wheelPos = [
+            [1, 0.45, 0.8], [1, 0.45, -0.8],
+            [-1, 0.45, 0.8], [-1, 0.45, -0.8]
         ];
-        positions.forEach(pos => {
-            const wheel = new THREE.Mesh(wheelGeom, wheelMat);
-            wheel.rotation.x = Math.PI / 2;
-            wheel.position.set(...pos);
-            craneGroup.add(wheel);
-            
-            // Wheel outline
+        wheelPos.forEach(pos => {
+            const w = new THREE.Mesh(wheelGeom, wheelMat);
+            const r = new THREE.Mesh(rimGeom, rimMat);
+            const group = new THREE.Group();
+            group.add(w);
+            group.add(r);
+            group.rotation.x = Math.PI / 2;
+            group.position.set(...pos);
+            craneGroup.add(group);
+
             const edges = new THREE.EdgesGeometry(wheelGeom);
             const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
             line.rotation.x = Math.PI / 2;
