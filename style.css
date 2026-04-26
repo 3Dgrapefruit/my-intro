@@ -40,13 +40,13 @@ body {
 }
 
 .profile-icon {
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid white;
   margin-bottom: 25px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   background: white; /* 背景を白にすることで透過部分の粗さを軽減 */
 }
 
