@@ -195,6 +195,28 @@ h2::before {
   font-weight: 600;
 }
 
+/* Mock App Link Button */
+.mock-link-btn {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 15px 35px;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(244, 0, 144, 0.3);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 3px solid var(--secondary-color);
+}
+
+.mock-link-btn:hover {
+  background-color: #fff;
+  color: var(--secondary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(244, 0, 144, 0.4);
+}
+
 /* Footer */
 footer {
   text-align: center;
